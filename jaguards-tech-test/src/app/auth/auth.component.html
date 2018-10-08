@@ -1,0 +1,40 @@
+<form class="centered">
+  <div class="form-group">
+    <label for="login">Addresse Email</label>
+    <input type="email" name="login" class="form-control" placeholder="Email" (keyup)="isAbleSignIn__SignUp=0" [(ngModel)]="loginValidator" #login="ngModel" required [email]="true">
+  </div>
+  <div class="form-group">
+    <label for="psw">Mot de Passe</label>
+    <input type="password" name="psw" class="form-control" placeholder="Mot de Passe" (keyup)="isAbleSignIn__SignUp=0" [(ngModel)]="pswValidator" #psw="ngModel" required>
+  </div>
+  
+  <!-- (click) passes input value to signin() or register() and then clears the input -->
+  <button class="btn btn-primary" (click)="signup(login.value, psw.value); login.value=''; psw.value=''">
+      Register
+    </button>
+    <button class="btn btn-primary" (click)="signin(login.value, psw.value); login.value=''; psw.value=''">
+      Login
+    </button>
+</form>
+
+<div *ngIf="login.invalid && (login.dirty || login.touched)"
+    class="alert alert-danger">
+  <div *ngIf="login.errors.required">
+      Le champ Email est requis.
+  </div>
+  <div *ngIf="login.errors.email">
+      Email non valide.
+  </div>
+</div>
+<div *ngIf="psw.invalid && (psw.dirty || psw.touched)"
+    class="alert alert-danger">
+  <div *ngIf="psw.errors.required">
+      Mot de passe requis.
+  </div>
+</div>
+<div class="alert alert-danger" *ngIf="isAbleSignIn__SignUp">
+  {{ errorMsg }}
+</div>
+
+
+{{ users | json }}
